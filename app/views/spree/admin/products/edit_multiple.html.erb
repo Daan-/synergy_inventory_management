@@ -63,7 +63,7 @@
               <th><%= t("sku") %></th>
               <th><%= sort_link @search, :name, t("name") %></th>
               <th><%= sort_link @search, :master_default_price_amount, t("master_price") %></th>
-              
+              <th class="actions"></th>
             </tr>
           </thead>
           <tbody>
@@ -73,7 +73,22 @@
                 <td><%= product.sku %></td>
                 <td><%= product.name %></td>
                 <td><%= product.price %></td>
-                
+                <td class="actions">
+                  <%= form_for product, :url => admin_product_path(product), :remote => true, :html => {:style => 'display:inline'} do |f| %>
+                      <% if product.active? %>
+                          <%= link_to ' ', 'javascript:void(0);', :class => 'change-availability icon-check no-text', :title => t('sim.published_hide') %>
+                      <% else %>
+                          <%= link_to ' ', 'javascript:void(0);', :class => 'change-availability icon-check-empty no-text', :title => t('sim.unpublished_show') %>
+                      <% end %>
+                      <%= f.hidden_field :available_on, :class => 'product_available_on', :value => (product.active? ? '' : Time.zone.now.strftime('%Y/%m/%d')) %>
+                  <%- end %>
+                  <% unless product.deleted? %>
+                    <%= link_to_edit product, :no_text => true %>
+                    <%= link_to_clone product, :no_text => true %>
+                    <%= link_to_delete product, :no_text => true %>
+                    <%= link_to_with_icon 'fa fa-search', t("preview"), product, :no_text => true, :target => "_blank" %>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           </tbody>

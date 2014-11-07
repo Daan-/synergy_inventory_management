@@ -22,7 +22,7 @@
         <div class="sidebar-title">
           <span><%= t("sim.catalog") %></span>
         </div>
-        <div id='taxonomy_tree' style=" overflow: auto">
+        <div id='taxonomy_tree' style=" overflow: auto; width: 325px;">
           <ul><%= render :partial => "taxon", :collection => Spree::Taxon.roots, :locals => {:current_taxon => @taxon} %></ul>
         </div>
       <% end %>
@@ -30,22 +30,23 @@
       <div class="twelve columns">
         <fieldset id="products_actions">
           <legend><%= t("sim.with_selected") %>:</legend>
+          <!--
           <div class="four columns">
-            <p><label><%= radio_button_tag 'products_action', 'publish_from' %> <%= t("sim.publish_from") %></label>
-              <%= text_field 'product', :available_on, :style => 'width:100px', :class => 'datepicker' %></p>
+            <p><label><%#= radio_button_tag 'products_action', 'publish_from' %> <%#= t("sim.publish_from") %></label>
+              <%#= text_field 'product', :available_on, :style => 'width:100px', :class => 'datepicker' %></p>
 
-            <p><label><%= radio_button_tag 'products_action', 'hide' %> <%= t("sim.hide_from_now") %></label></p>
-            <%= hidden_field 'product', :available_on, :id => 'product_hide' %>
-          </div>
+            <p><label><%#= radio_button_tag 'products_action', 'hide' %> <%= t("sim.hide_from_now") %></label></p>
+            <%#= hidden_field 'product', :available_on, :id => 'product_hide' %>
+          </div>-->
           <div class="four columns">
-            <p><label><%= radio_button_tag 'products_action', 'add_taxon' %> <%= t("sim.add_taxon") %></label>
-              <% options_for_taxon = [] %>
-              <% Spree::Taxon.each_with_level(Spree::Taxon.roots.map{ |root|root.self_and_descendants}.flatten) { |tax, level| options_for_taxon << "<option value='#{tax.id}'>#{'-' * level}#{tax.name}</option>" } %>
-              <%= select 'product', :add_taxon, raw(options_for_taxon.join) %></p>
-
+            <p><label><%= radio_button_tag 'products_action', 'add_taxon' %> <%= t("sim.add_taxon") %></label></p>
             <p><label><%= radio_button_tag 'products_action', 'delete' %> <%= t("sim.delete") %></label></p>
           </div>
-          <div class="two columns">
+          <div class="clear"></div>
+          <div class="six columns">
+            <% options_for_taxon = [] %>
+            <% Spree::Taxon.each_with_level(Spree::Taxon.roots.map{ |root|root.self_and_descendants}.flatten) { |tax, level| options_for_taxon << "<option value='#{tax.id}'>#{'-' * level}#{tax.name}</option>" } %>
+            <%= select 'product', :add_taxon, raw(options_for_taxon.join),{}, { :style => 'width: 201px;' } %>
             <%= button t("sim.go") %>
           </div>
         </fieldset>
@@ -86,7 +87,7 @@
                     <%= link_to_edit product, :no_text => true %>
                     <%= link_to_clone product, :no_text => true %>
                     <%= link_to_delete product, :no_text => true %>
-                    <%= link_to_with_icon 'fa fa-search', t("preview"), product, :no_text => true, :target => "_blank" %>
+                    <%= link_to_with_icon 'fa   fa-search', t("sim.preview"), product, :no_text => true, :target => "_blank" %>
                   <% end %>
                 </td>
               </tr>

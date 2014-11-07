@@ -15,7 +15,15 @@ module Spree
     def add_taxon_save
       return true unless add_taxon.present?
       taxon = Taxon.find(add_taxon)
-      self.taxons << taxon if !self.taxons.include? taxon
+      product_taxons = self.taxons
+      
+      if product_taxons.present?
+        product_taxons.each do |prod_taxon|
+          product_taxons.delete(prod_taxon)
+        end      
+      end
+          
+      product_taxons << taxon if !product_taxons.include? taxon
       true
     end
   end

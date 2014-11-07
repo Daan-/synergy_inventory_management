@@ -85,7 +85,6 @@
                   <%- end %>
                   <% unless product.deleted? %>
                     <%= link_to_edit product, :no_text => true %>
-                    <%= link_to_clone product, :no_text => true %>
                     <%= link_to_delete product, :no_text => true %>
                     <%= link_to_with_icon 'fa   fa-search', t("sim.preview"), product, :no_text => true, :target => "_blank" %>
                   <% end %>

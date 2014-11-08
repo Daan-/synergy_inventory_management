@@ -2,6 +2,7 @@ module Spree
   Admin::ProductsController.class_eval do
     skip_before_filter :load_resource, :only => [:edit_multiple, :update_multiple, :destroy_multiple]
     before_filter :load_multiple, :only => [:update_multiple, :destroy_multiple]
+    before_filter :update_product_price, :only => :update_multiple
 
 
     def edit_multiple
@@ -24,7 +25,6 @@ module Spree
     end
 
     def update_multiple
-      @collection.each { |pr| pr.update_attributes!(permitted_resource_params) }
       flash[:notice] = I18n.t('sim.products_successfully_updated')
       respond_with(@collection) do |format|
         format.html { redirect_to admin_edit_multiple_products_url(:id => params[:id]) }
@@ -47,6 +47,16 @@ module Spree
 
     def load_multiple
       @collection = Product.where(:id => params[:product_ids])
+    end
+    
+    def update_product_price
+      if params[:product][:price_percentage].blank?
+        @collection.each { |pr| pr.update_attributes!(permitted_resource_params) }
+      else  
+        @collection.each do |pr|
+          pr.get_update_product_price(params[:product][:price_percentage])
+        end  
+      end
     end
     
     private :load_multiple

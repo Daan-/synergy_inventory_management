@@ -30,14 +30,16 @@
       <div class="twelve columns">
         <fieldset id="products_actions">
           <legend><%= t("sim.with_selected") %>:</legend>
-          <!--
-          <div class="four columns">
-            <p><label><%#= radio_button_tag 'products_action', 'publish_from' %> <%#= t("sim.publish_from") %></label>
-              <%#= text_field 'product', :available_on, :style => 'width:100px', :class => 'datepicker' %></p>
-
-            <p><label><%#= radio_button_tag 'products_action', 'hide' %> <%= t("sim.hide_from_now") %></label></p>
-            <%#= hidden_field 'product', :available_on, :id => 'product_hide' %>
-          </div>-->
+          <div class="six columns">
+            <p><label><%= radio_button_tag 'products_action', 'price_percentage' %> <%= t("sim.price_percentage") %></label>
+              <%= text_field 'product', :price_percentage, :style => 'width:100px' %></p>
+            
+            <!--
+              <p><label><%#= radio_button_tag 'products_action', 'hide' %> <%= t("sim.hide_from_now") %></label></p>
+              <%#= hidden_field 'product', :available_on, :id => 'product_hide' %>
+            -->  
+          </div>
+          <div class="clear"></div>
           <div class="four columns">
             <p><label><%= radio_button_tag 'products_action', 'add_taxon' %> <%= t("sim.add_taxon") %></label></p>
             <p><label><%#= radio_button_tag 'products_action', 'delete' %> <%#= t("sim.delete") %></label></p>

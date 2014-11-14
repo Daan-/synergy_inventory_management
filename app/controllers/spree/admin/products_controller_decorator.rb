@@ -8,7 +8,7 @@ module Spree
     def edit_multiple
       session[:im_per_page] = params[:per_page].to_i if !params[:per_page].nil?
       @taxon = params[:id].present? ? Taxon.find(params[:id]) : Taxon.root
-      product_ids = @taxon.present? ? @taxon.self_and_descendants.map { |tax| tax.product_ids }.flatten.uniq : []
+      product_ids = @taxon.present? ? @taxon.product_ids.flatten.uniq : []
 
       params[:q] ||= {}
       params[:q][:deleted_at_null] = '1' if params[:q][:deleted_at_null].nil?

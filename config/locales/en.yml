@@ -2,7 +2,7 @@
 en:
   sim:
     edit_multiple_products: "Inventory management"
-    with_selected: "With selected"
+    with_selected: "Change selling price of selected products"
     catalog: "Catalog"
     publish_from: "Publish from"
     hide_from_now: "Hide from now"
@@ -32,3 +32,4 @@ en:
     with_extra_text: "Hoeveel procent korting wil je op de volgende producten doorvoeren? (Uitgangspunt is de advies prijs)" 
     retail_price: "Retail Price"
     text_above_table: "All prices shown are inclusive of VAT."
+    with_second_extra_text: "Move selected products by category"

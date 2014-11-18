@@ -2,11 +2,11 @@
 nl:
   sim:
     edit_multiple_products: "inventarisbeheer"
-    with_selected: "Verplaats producten naar categorie"
+    with_selected: "Wijzig verkoopprijs van geselecteerde producten"
     catalog: "catalogus"
     publish_from: "publiceren van"
     hide_from_now: "Verbergen voor nu"
-    add_taxon: "Add taxon"
+    add_taxon: "Wijzig categorie"
     delete: "verwijderen"
     go: "gaan"
     per_page: "per pagina"
@@ -32,3 +32,4 @@ nl:
     with_extra_text: "Hoeveel procent korting wil je op de volgende producten doorvoeren? (Uitgangspunt is de advies prijs)"  
     retail_price: "winkelprijs"
     text_above_table: "Alle getoonde prijzen zijn inclusief BTW."
+    with_second_extra_text: "Verplaats geselecteerde producten naar categorie"

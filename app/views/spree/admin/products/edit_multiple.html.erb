@@ -29,14 +29,17 @@
 
       <div class="twelve columns">
         <fieldset id="products_actions" style="border: 1px solid #cee1f4;">
-          <legend><%= t("sim.with_selected") %>:</legend>
+          <legend><%= t("sim.with_selected") %></legend>
           <div class="columns"><%= t("sim.with_extra_text") %></div>
           <div class="clear"></div><br/>
           <div class="eight columns">
             <p><label><%= radio_button_tag 'products_action', 'price_percentage' %> <%= t("sim.price_percentage") %></label>
               <%= text_field 'product', :price_percentage, :style => 'width:100px' %></p>
           </div>
-          <div class="clear"></div>
+        </fieldset>
+        <fieldset id="products_actions" style="border: 1px solid #cee1f4;">
+          <legend><%= t("sim.with_second_extra_text") %></legend>
+          <div class="clear"></div><br/>
           <div class="four columns">
             <p><label><%= radio_button_tag 'products_action', 'add_taxon' %> <%= t("sim.add_taxon") %></label></p>
             <p><label><%#= radio_button_tag 'products_action', 'delete' %> <%#= t("sim.delete") %></label></p>
@@ -75,8 +78,8 @@
                 <td><%= check_box_tag 'product_ids[]', product.id, false, :class => 'product-select' %></td>
                 <td><%= product.sku %></td>
                 <td><%= product.name %></td>
-                <td><%= product.price %></td>
-                <td><%= product.retail_amount %></td>
+                <td><%= display_price(product) %></td>
+                <td><%= display_reatil_amount(product) %></td>
                 <td class="actions">
                   <%= form_for product, :url => admin_product_path(product), :remote => true, :html => {:style => 'display:inline'} do |f| %>
                       <% if product.active? %>
@@ -108,12 +111,3 @@
       <p><%= t('sim.requires_at_least_one_taxon') %></p>
   <% end %>
 </div>
-
-<style>
-legend { 
-    display: block;
-    padding-left: 2px;
-    padding-right: 2px;
-    border: none;
-}
-</style>

@@ -2,7 +2,7 @@
 nl:
   sim:
     edit_multiple_products: "inventarisbeheer"
-    with_selected: "met geselecteerd"
+    with_selected: "Verplaats producten naar categorie"
     catalog: "catalogus"
     publish_from: "publiceren van"
     hide_from_now: "Verbergen voor nu"
@@ -23,4 +23,12 @@ nl:
     published_hide: "Gepubliceerd (verberg op klik)"
     unpublished_show: "Ongepubliceerde (toon door te klikken)"
     preview: "preview"
-    price_percentage: "prijs percentage"
+    price_percentage: "Wijzig verkoopprijs op basis van percentage"
+    name: "Naam"
+    master_price: "verkoop prijs"
+    active: "Actief"
+    True: "Ja"
+    False: "Nee"
+    with_extra_text: "Hoeveel procent korting wil je op de volgende producten doorvoeren? (Uitgangspunt is de advies prijs)"  
+    retail_price: "winkelprijs"
+    text_above_table: "Alle getoonde prijzen zijn inclusief BTW."

@@ -30,6 +30,16 @@
       <div class="twelve columns">
         <fieldset id="products_actions">
           <legend><%= t("sim.with_selected") %>:</legend>
+          
+          <div class="four columns">
+            <p><label><%= radio_button_tag 'products_action', 'publish_from' %> <%= t("sim.publish_from") %></label>
+              <%= text_field 'product', :available_on, :style => 'width:100px', :class => 'datepicker' %></p>
+
+            <p><label><%= radio_button_tag 'products_action', 'hide' %> <%= t("sim.hide_from_now") %></label></p>
+            <%= hidden_field 'product', :available_on, :id => 'product_hide' %>
+          </div>
+          <div class="clear"></div>
+          <br>
           <div class="six columns">
             <p><label><%= radio_button_tag 'products_action', 'price_percentage' %> <%= t("sim.price_percentage") %></label>
               <%= text_field 'product', :price_percentage, :style => 'width:100px' %></p>
@@ -45,6 +55,7 @@
             <p><label><%#= radio_button_tag 'products_action', 'delete' %> <%#= t("sim.delete") %></label></p>
           </div>
           <div class="clear"></div>
+          <br>
           <div class="six columns">
             <% options_for_taxon = [] %>
             <% Spree::Taxon.each_with_level(Spree::Taxon.roots.map{ |root|root.self_and_descendants}.flatten) { |tax, level| options_for_taxon << "<option value='#{tax.id}'>#{'-' * level}#{tax.name}</option>" } %>
@@ -66,6 +77,7 @@
               <th><%= t("sku") %></th>
               <th><%= sort_link @search, :name, t("name") %></th>
               <th><%= sort_link @search, :master_default_price_amount, t("master_price") %></th>
+              <th>Active</th>
               <th class="actions"></th>
             </tr>
           </thead>
@@ -76,6 +88,7 @@
                 <td><%= product.sku %></td>
                 <td><%= product.name %></td>
                 <td><%= product.price %></td>
+                <td><%= product.available_on? %></td>
                 <td class="actions">
                   <%= form_for product, :url => admin_product_path(product), :remote => true, :html => {:style => 'display:inline'} do |f| %>
                       <% if product.active? %>

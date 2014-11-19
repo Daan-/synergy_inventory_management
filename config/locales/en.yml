@@ -25,7 +25,7 @@ en:
     preview: "preview"
     price_percentage: "Change selling price based on a percentage"
     name: "Name"
-    master_price: "MASTER PRICE"
+    master_price: "Price"
     active: "Active"
     true: "true"
     false: "false"

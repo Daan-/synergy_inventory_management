@@ -33,3 +33,4 @@ nl:
     retail_price: "Advies prijs"
     text_above_table: "Alle getoonde prijzen zijn inclusief BTW."
     with_second_extra_text: "Verplaats geselecteerde producten naar categorie"
+    delete_selected_products: "verwijderen geselecteerde producten"  

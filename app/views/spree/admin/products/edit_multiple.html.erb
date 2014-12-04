@@ -25,12 +25,6 @@
         <div id='taxonomy_tree' style=" overflow: auto; width: 325px;">
           <ul><%= render :partial => "taxon", :collection => Spree::Taxon.roots, :locals => {:current_taxon => @taxon} %></ul>
         </div>
-        
-        <div class="clear"></div>
-          <br>
-        <div id='taxonomy_tree' style=" overflow: auto; width: 230px;">
-          <ul><%= render :partial => "filters" %></ul>
-        </div>
       <% end %>
 
       <div class="twelve columns">
@@ -44,11 +38,16 @@
           </div>
         </fieldset>
         <fieldset id="products_actions" style="border: 1px solid #cee1f4;">
+          <legend><%= t("sim.delete_selected_products") %></legend>
+          <div class="four columns">
+            <p><label><%= radio_button_tag 'products_action', 'delete' %> <%= t("sim.delete") %></label></p>
+          </div>
+        </fieldset>
+        <fieldset id="products_actions" style="border: 1px solid #cee1f4;">
           <legend><%= t("sim.with_second_extra_text") %></legend>
           <div class="clear"></div><br/>
           <div class="four columns">
             <p><label><%= radio_button_tag 'products_action', 'add_taxon' %> <%= t("sim.add_taxon") %></label></p>
-            <p><label><%#= radio_button_tag 'products_action', 'delete' %> <%#= t("sim.delete") %></label></p>
           </div>
           <div class="clear"></div>
           <br>

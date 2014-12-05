@@ -3,15 +3,12 @@
   <% filters.each do |filter| %>
     <% labels = filter[:labels] || filter[:conds].map {|m,c| [m,m]} %>
     <% next if labels.empty? %>
-    <li>
-      <% if filter[:name] == "Brand" %>
-        <div class="sidebar-title">
-          <span><%= filter[:name] %></span>
-        </div>
-        <% labels.each do |nm,val| %>
+    <% if filter[:name] == "Brand" %>
+      <% labels.each do |nm,val| %>
+        <li style="height: 40px;">
           <%= link_to nm, admin_display_brand_products_path(nm), style: "display: block;" %>
-        <% end %>  
-      <% end %>
-    </li>
+        </li>
+      <% end %>  
+    <% end %>  
   <% end %>
 <% end %>

@@ -43,7 +43,7 @@ module Spree
     def update_multiple
       flash[:notice] = I18n.t('sim.products_successfully_updated')
       respond_with(@collection) do |format|
-        format.html { redirect_to admin_edit_multiple_products_url(:id => params[:id]) }
+        format.html { redirect_to :back } #admin_edit_multiple_products_url(:id => params[:id]) }
         format.json { render :json => json_data }
       end
     end
@@ -56,7 +56,7 @@ module Spree
       end
       flash[:notice] = I18n.t('sim.products_successfully_deleted')
       respond_with(@collection) do |format|
-        format.html { redirect_to admin_edit_multiple_products_url(:id => params[:id]) }
+        format.html { redirect_to :back } #admin_edit_multiple_products_url(:id => params[:id]) }
         format.json { render :json => json_data }
       end
     end

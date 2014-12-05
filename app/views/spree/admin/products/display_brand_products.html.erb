@@ -1,119 +1,111 @@
+<style>
+  .fa-arrows:before, #taxonomy_tree li a .jstree-icon:before{ content: none;}
+  #vakata-contextmenu {display: none !important;}
+</style>
 <%= render :partial => 'spree/admin/shared/product_sub_menu' %>
 
 <% content_for :page_title do %>
-  <%= t("sim.edit_multiple_products") %>
+  <%= t("sim.display_brand_products") %>
 <% end %>
 
 <% content_for :page_actions do %>
   <li id="new_product_link">
-    <%= button_link_to t("sim.new_product_here"), new_object_url("product[add_taxon]" => @taxon.id), {"data-update" => :new_product, :icon => 'icon-plus', :id => 'admin_new_product'} %>
+    <%#= button_link_to t("sim.new_product_here"), new_object_url("product[add_taxon]" => @taxon.id), {"data-update" => :new_product, :icon => 'icon-plus', :id => 'admin_new_product'} %>
   </li>
 <% end %>
 
 <div id="synergy_imi">
-
   <div id="new_product"></div>
   <p id="ajax_error" class="errorExplanation" style="display:none;"></p>
   <% if @taxon.present? %>
 
-      <%= render :partial => 'js_head', :locals => {:current_taxon => @taxon} %>
-      
-      <% content_for :sidebar do %>
-        <div class="sidebar-title">
-          <span><%= t("sim.catalog") %></span>
+    <%= render :partial => 'js_head', :locals => {:current_taxon => @taxon} %>
+    
+    <% content_for :sidebar do %>
+      <div class="sidebar-title">
+        <span><%= t("sim.brand") %></span>
+      </div>
+      <div id='taxonomy_tree' style="width: 230px; margin-top: -20px;">
+        <ul><%= render :partial => "filters" %></ul>
+      </div>
+    <% end %>
+
+    <div class="twelve columns">
+      <fieldset id="products_actions" style="border: 1px solid #cee1f4;">
+        <legend><%= t("sim.with_selected") %></legend>
+        <div class="columns"><%= t("sim.with_extra_text") %></div>
+        <div class="clear"></div><br/>
+        <div class="eight columns">
+          <p><label><%= radio_button_tag 'products_action', 'price_percentage' %> <%= t("sim.price_percentage") %></label>
+            <%= text_field 'product', :price_percentage, :style => 'width:100px' %></p>
         </div>
-        <div id='taxonomy_tree' style=" overflow: auto; width: 325px;">
-          <ul><%= render :partial => "taxon", :collection => Spree::Taxon.roots, :locals => {:current_taxon => @taxon} %></ul>
+      </fieldset>
+      <fieldset id="products_actions" style="border: 1px solid #cee1f4;">
+        <legend><%= t("sim.delete_selected_products") %></legend>
+        <div class="four columns">
+          <p><label><%= radio_button_tag 'products_action', 'delete' %> <%= t("sim.delete") %></label></p>
         </div>
-        
         <div class="clear"></div>
-          <br>
-        <div id='taxonomy_tree' style=" overflow: auto; width: 230px;">
-          <ul><%= render :partial => "filters" %></ul>
+        <br>
+        <div class="six columns">
+          <%= button t("sim.go") %>
         </div>
-      <% end %>
+      </fieldset>
+    </div>
 
-      <div class="twelve columns">
-        <fieldset id="products_actions" style="border: 1px solid #cee1f4;">
-          <legend><%= t("sim.with_selected") %></legend>
-          <div class="columns"><%= t("sim.with_extra_text") %></div>
-          <div class="clear"></div><br/>
-          <div class="eight columns">
-            <p><label><%= radio_button_tag 'products_action', 'price_percentage' %> <%= t("sim.price_percentage") %></label>
-              <%= text_field 'product', :price_percentage, :style => 'width:100px' %></p>
-          </div>
-        </fieldset>
-        <fieldset id="products_actions" style="border: 1px solid #cee1f4;">
-          <legend><%= t("sim.with_second_extra_text") %></legend>
-          <div class="clear"></div><br/>
-          <div class="four columns">
-            <p><label><%= radio_button_tag 'products_action', 'add_taxon' %> <%= t("sim.add_taxon") %></label></p>
-            <p><label><%#= radio_button_tag 'products_action', 'delete' %> <%#= t("sim.delete") %></label></p>
-          </div>
-          <div class="clear"></div>
-          <br>
-          <div class="six columns">
-            <% options_for_taxon = [] %>
-            <% Spree::Taxon.each_with_level(Spree::Taxon.roots.map{ |root|root.self_and_descendants}.flatten) { |tax, level| options_for_taxon << "<option value='#{tax.id}'>#{'-' * level}#{tax.name}</option>" } %>
-            <%= select 'product', :add_taxon, raw(options_for_taxon.join),{}, { :style => 'width: 201px;' } %>
-            <%= button t("sim.go") %>
-          </div>
-        </fieldset>
-      </div>
+    <div class="clear"></div>
 
-      <div class="clear"></div>
-
-      <div id="products_list" class="twelve columns">
-        <div id="current_path"><%= @taxon.self_and_ancestors.map {|tax| link_to tax.name, admin_edit_multiple_products_path(tax) }.join(" > ").html_safe  %></div>
-        <div><%= t("sim.text_above_table") %></div>
-        <div class="clear"></div><br>
-        <table class="index" id="listing_products">
-          <thead>
-            <tr>
-              <th><%= check_box_tag 'check-all', 1, false, :id => 'check-all' %></th>
-              <th><%= t("sku") %></th>
-              <th><%= sort_link @search, :name, t("sim.name") %></th>
-              <th><%= sort_link @search, :master_default_price_amount, t("sim.retail_price") %></th>
-              <th><%= sort_link @search, :master_default_price_amount, t("sim.master_price") %></th>
-              <th class="actions"></th>
+    <div id="products_list" class="twelve columns">
+      <div id="current_path"><%= @taxon.self_and_ancestors.map {|tax| link_to tax.name, admin_edit_multiple_products_path(tax) }.join(" > ").html_safe  %></div>
+      <div><%= t("sim.text_above_table") %></div>
+      <div class="clear"></div><br>
+      <table class="index" id="listing_products">
+        <thead>
+          <tr>
+            <th><%= check_box_tag 'check-all', 1, false, :id => 'check-all' %></th>
+            <th><%= t("sku") %></th>
+            <th><%= sort_link @search, :name, t("sim.name") %></th>
+            <th><%= sort_link @search, :master_default_price_amount, t("sim.retail_price") %></th>
+            <th><%= sort_link @search, :master_default_price_amount, t("sim.master_price") %></th>
+            <th class="actions"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @collection.each do |product| %>
+            <tr id="<%= dom_id product %>">
+              <td><%= check_box_tag 'product_ids[]', product.id, false, :class => 'product-select' %></td>
+              <td><%= product.sku %></td>
+              <td><%= product.name %></td>
+              <td><%= display_reatil_amount(product) %></td>
+              <td><%= display_price(product) %></td>
+              <td class="actions">
+                <%= form_for product, :url => admin_product_path(product), :remote => true, :html => {:style => 'display:inline'} do |f| %>
+                    <% if product.active? %>
+                        <%= link_to ' ', 'javascript:void(0);', :class => 'change-availability icon-check no-text', :title => t('sim.published_hide') %>
+                    <% else %>
+                        <%= link_to ' ', 'javascript:void(0);', :class => 'change-availability icon-check-empty no-text', :title => t('sim.unpublished_show') %>
+                    <% end %>
+                    <%= f.hidden_field :available_on, :class => 'product_available_on', :value => (product.active? ? '' : Time.zone.now.strftime('%Y/%m/%d')) %>
+                <%- end %>
+                <% unless product.deleted? %>
+                  <%= link_to_edit product, :no_text => true %>
+                  <%= link_to_delete product, :no_text => true %>
+                  <%= link_to_with_icon 'fa   fa-search', t("sim.preview"), product, :no_text => true, :target => "_blank" %>
+                <% end %>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            <% @collection.each do |product| %>
-              <tr id="<%= dom_id product %>">
-                <td><%= check_box_tag 'product_ids[]', product.id, false, :class => 'product-select' %></td>
-                <td><%= product.sku %></td>
-                <td><%= product.name %></td>
-                <td><%= display_reatil_amount(product) %></td>
-                <td><%= display_price(product) %></td>
-                <td class="actions">
-                  <%= form_for product, :url => admin_product_path(product), :remote => true, :html => {:style => 'display:inline'} do |f| %>
-                      <% if product.active? %>
-                          <%= link_to ' ', 'javascript:void(0);', :class => 'change-availability icon-check no-text', :title => t('sim.published_hide') %>
-                      <% else %>
-                          <%= link_to ' ', 'javascript:void(0);', :class => 'change-availability icon-check-empty no-text', :title => t('sim.unpublished_show') %>
-                      <% end %>
-                      <%= f.hidden_field :available_on, :class => 'product_available_on', :value => (product.active? ? '' : Time.zone.now.strftime('%Y/%m/%d')) %>
-                  <%- end %>
-                  <% unless product.deleted? %>
-                    <%= link_to_edit product, :no_text => true %>
-                    <%= link_to_delete product, :no_text => true %>
-                    <%= link_to_with_icon 'fa   fa-search', t("sim.preview"), product, :no_text => true, :target => "_blank" %>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-        <%= form_tag admin_edit_multiple_products_path(@taxon.id), :id => 'product_ids_form', :method => :put, :style => "display:none" do %>
-        <% end %>
-        <%= paginate(@collection, :previous_label => "&#171; #{t('previous')}", :next_label => "#{t('next')} &#187;") %>
-        <%= form_tag '', :method => :get, :id => 'per_page_form' do %>
-            <%= label_tag 'per_page', t('sim.per_page') %>
-            <%= select_tag 'per_page', options_for_select([["10"], ["50"], ["100"], [t(:all), "10000"]], session[:im_per_page].to_s) %>
-        <% end %>
-      </div>
+          <% end %>
+        </tbody>
+      </table>
+      <%= form_tag admin_edit_multiple_products_path(@taxon.id), :id => 'product_ids_form', :method => :put, :style => "display:none" do %>
+      <% end %>
+      <%= paginate(@collection, :previous_label => "&#171; #{t('previous')}", :next_label => "#{t('next')} &#187;") %>
+      <%= form_tag '', :method => :get, :id => 'per_page_form' do %>
+          <%= label_tag 'per_page', t('sim.per_page') %>
+          <%= select_tag 'per_page', options_for_select([["10"], ["50"], ["100"], [t(:all), "10000"]], session[:im_per_page].to_s) %>
+      <% end %>
+    </div>
   <% else %>
-      <p><%= t('sim.requires_at_least_one_taxon') %></p>
+    <p><%= t('sim.requires_at_least_one_taxon') %></p>
   <% end %>
 </div>

@@ -33,4 +33,6 @@ en:
     retail_price: "Retail Price"
     text_above_table: "All prices shown are inclusive of VAT."
     with_second_extra_text: "Move selected products by category"
-    delete_selected_products: "Delete selected products"  
+    delete_selected_products: "Delete selected products"
+    display_brand_products: "Brand management"
+    brand: "Brand"  

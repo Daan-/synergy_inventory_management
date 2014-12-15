@@ -49,15 +49,16 @@
           <div class="four columns">
             <p><label><%= radio_button_tag 'products_action', 'add_taxon' %> <%= t("sim.add_taxon") %></label></p>
           </div>
-          <div class="clear"></div>
-          <br>
           <div class="six columns">
             <% options_for_taxon = [] %>
             <% Spree::Taxon.each_with_level(Spree::Taxon.roots.map{ |root|root.self_and_descendants}.flatten) { |tax, level| options_for_taxon << "<option value='#{tax.id}'>#{'-' * level}#{tax.name}</option>" } %>
             <%= select 'product', :add_taxon, raw(options_for_taxon.join),{}, { :style => 'width: 201px;' } %>
-            <%= button t("sim.go") %>
           </div>
         </fieldset>
+        <div class="six columns">
+          <%= button t("sim.go") %>
+        </div>
+        <div class="clear"></div><br/>
       </div>
 
       <div class="clear"></div>

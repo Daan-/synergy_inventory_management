@@ -1,4 +1,4 @@
-<% filters = @taxon ? @taxon.applicable_filters : [Spree::Core::ProductFilters.all_taxons] %>
+<% filters = @taxon ? @taxon.applicable_filters(50, 10) : [Spree::Core::ProductFilters.all_taxons] %>
 <% unless filters.empty? %>
   <% filters.each do |filter| %>
     <% labels = filter[:labels] || filter[:conds].map {|m,c| [m,m]} %>

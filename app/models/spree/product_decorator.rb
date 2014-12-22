@@ -29,7 +29,13 @@ module Spree
     def get_update_product_price(price_percentage)
       self.retail_amount = self.price unless self.retail_amount.to_f > 0.0
       self.price = (self.retail_amount.to_f - ((self.retail_amount.to_f*price_percentage.to_i)/100))
+      self.price = set_last_digit(self.price)
       self.save
+    end
+    
+    def set_last_digit(price)
+      price=price.to_f.round(2)
+      return  price + (".0" + (9-price.to_s.last.to_i).to_s).to_f
     end
     
   end

@@ -3,7 +3,7 @@
   <% filters.each do |filter| %>
     <% labels = filter[:labels] || filter[:conds].map {|m,c| [m,m]} %>
     <% next if labels.empty? %>
-    <% if filter[:name] == "Brand" %>
+    <% if filter[:name] == "Merk" %>
       <% labels.each do |nm,val| %>
         <li style="height: 40px;">
           <%= link_to nm, admin_display_brand_products_path(nm), style: "display: block;" %>

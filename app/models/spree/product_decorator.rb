@@ -35,15 +35,14 @@ module Spree
     
     def set_last_digit(price)
       price=price.to_f.round(2)
-      ld = price.to_s.last.to_i
-      if ld==0
+      ld = price.to_s.split(".")[1][1].nil? ? 0 : price.to_s.last.to_i
+      if ld==0 || ld==5
         return price
-      elsif ld < 4  
-        return price - (".0" + (ld+1).to_s).to_f 
+      elsif ld < 5
+        return price + (".0" + (5 - ld).to_s).to_f
       else
-        return price + (".0" + (9-ld).to_s).to_f
+        return price + (".0" + (9 - ld).to_s).to_f
       end
-
     end
     
   end

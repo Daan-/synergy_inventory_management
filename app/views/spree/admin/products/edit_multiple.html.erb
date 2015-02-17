@@ -73,7 +73,6 @@
               <th><%= check_box_tag 'check-all', 1, false, :id => 'check-all' %></th>
               <th><%= t("sku") %></th>
               <th><%= sort_link @search, :name, t("sim.name") %></th>
-              <th><%= sort_link @search, :master_default_price_amount, t("sim.retail_price") %></th>
               <th><%= sort_link @search, :master_default_price_amount, t("sim.master_price") %></th>
               <th class="actions"></th>
             </tr>
@@ -84,7 +83,6 @@
                 <td><%= check_box_tag 'product_ids[]', product.id, false, :class => 'product-select' %></td>
                 <td><%= product.sku %></td>
                 <td><%= product.name %></td>
-                <td><%= display_reatil_amount(product) %></td>
                 <td><%= display_price(product) %></td>
                 <td class="actions">
                   <%= form_for product, :url => admin_product_path(product), :remote => true, :html => {:style => 'display:inline'} do |f| %>

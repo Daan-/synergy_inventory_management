@@ -29,7 +29,7 @@ Enjoy!
 Compatibility
 -------------
 
-Current version (0.2) compatible with Spree/Synergy 0.60.
+Current version (1.4) compatible with Spree/Synergy 2.3.
 
 
 Usage

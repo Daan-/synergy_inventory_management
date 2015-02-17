@@ -31,3 +31,23 @@
 #synergy_imi .actions a {
   margin: 0 0 0 5px;
 }
+
+/* Change availability green or red icon */
+.change-availability {
+    font-size: 120%;
+    border: 1px solid #cee1f4;
+    border-radius: 15px;
+    width: 29px;
+    height: 29px;
+    display: inline-block;
+    padding-top: 6px;
+    vertical-align: bottom;
+}
+
+.change-availability.icon-check {
+    background-color: #3fbd00;
+}
+
+.change-availability.icon-check-empty {
+    background-color: #bd1f00;
+}
